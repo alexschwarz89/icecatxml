@@ -1,0 +1,21 @@
+{
+  "name": "alexschwarz89/icecatxml",
+  "type": "library",
+  "license": "MIT",
+  "description": "An easy-to-use Library to access Icecat XML Catalog",
+  "keywords": ["icecat", "product data", "product catalog"],
+  "authors": [
+    {
+      "name": "Alex Schwarz",
+      "email": "alexschwarz@live.de"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.3.3",
+    "guzzlehttp/guzzle": "5.3"
+  },
+  "autoload": {
+    "psr-4": {"Alexschwarz89\\IcecatXML\\": "src/"}
+  }
+}
