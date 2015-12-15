@@ -1,3 +1,5 @@
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/bdc4649b-7a9c-42ab-9e23-ac49f683af00/mini.png)](https://insight.sensiolabs.com/projects/bdc4649b-7a9c-42ab-9e23-ac49f683af00)
+
 icecatxml
 ============
 
