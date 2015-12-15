@@ -1,7 +1,8 @@
 icecatxml
 ============
 
-An easy-to-use PHP library to access product data provided by Icecat.
+An easy-to-use PHP library to access product data provided by Icecat. 
+It should be compatible up to PHP 5.3.3.
 
 ## Install
 
