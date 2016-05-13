@@ -1,6 +1,7 @@
 <?php
 
 namespace Alexschwarz89\IcecatXML;
+use Alexschwarz89\IcecatXML\Exception\IcecatException;
 use GuzzleHttp\Exception\RequestException;
 
 /**
@@ -17,7 +18,23 @@ class Api
      *
      * @var string
      */
-    protected $apiBaseUrl = 'https://data.icecat.biz/xml_s3/xml_server3.cgi';
+    protected $apiBaseUrl = 'https://data.icecat.biz';
+
+
+    /**
+     * The endpoint relative to base URL for all XML requests
+     *
+     * @var string
+     */
+    protected $xmlEndpoint = 'xml_s3/xml_server3.cgi';
+
+    /**
+     * The endpoint relative to base URL for direct ID request
+     *
+     * @var string
+     */
+    protected $idEndpoint  = 'export/level4';
+
     /**
      * @var \GuzzleHttp\Client
      */
@@ -74,10 +91,10 @@ class Api
      * @param $params
      * @return bool|\SimpleXMLElement
      */
-    protected function request($params)
+    protected function request($endpoint, $params)
     {
         try {
-            $response = $this->guzzle->get(null,
+            $response = $this->guzzle->get($endpoint,
                 array(
                     'query' => $params
                 ));
@@ -99,11 +116,14 @@ class Api
      * @param $ean
      * @return bool|\SimpleXMLElement
      */
-    public function getArticleByEAN($ean)
+    public function getArticleByEAN($ean, $lang='DE')
     {
-        $params = array('ean_upc' => $ean);
+        $params = array(
+            'ean_upc' => $ean,
+            'lang' => $lang
+        );
 
-        return $this->request($params);
+        return $this->request($this->xmlEndpoint, $params);
     }
 
     /**
@@ -121,6 +141,32 @@ class Api
             'output' => 'productxml'
         );
 
-        return $this->request($params);
+        return $this->request($this->xmlEndpoint, $params);
+    }
+
+    /**
+     * Queries article by icecat ID
+     *
+     * @param $icecatId
+     * @param string $lang
+     * @return bool|\SimpleXMLElement
+     */
+    public function getArticleById($icecatId, $lang='DE') {
+
+        $icecatId   = trim($icecatId);
+        $lang       = trim($lang);
+        $url = $this->idEndpoint . "/$lang/$icecatId.xml";
+
+        return $this->request($url, []);
+    }
+
+    public function isValidArticle($response)
+    {
+        if (isset($response->Product->attributes()->ErrorMessage)) {
+            $code = isset($response->Product->attributes()->Code) ? (int)$response->Product->attributes()->Code : null;
+            throw new IcecatException((string)$response->Product->attributes()->ErrorMessage, $code);
+        }
+
+        return true;
     }
 }
