@@ -14,7 +14,7 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=5.3.3",
-    "guzzlehttp/guzzle": "5.3"
+    "guzzlehttp/guzzle": "5.3.*"
   },
   "autoload": {
     "psr-4": {"Alexschwarz89\\IcecatXML\\": "src/"}

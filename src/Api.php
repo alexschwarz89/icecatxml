@@ -160,7 +160,7 @@ class Api
         return $this->request($url, []);
     }
 
-    public function isValidArticle($response)
+    public function isValidArticle(\SimpleXMLElement $response)
     {
         if (isset($response->Product->attributes()->ErrorMessage)) {
             $code = isset($response->Product->attributes()->Code) ? (int)$response->Product->attributes()->Code : null;
