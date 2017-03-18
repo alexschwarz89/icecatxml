@@ -4,7 +4,7 @@ icecatxml
 ============
 
 An easy-to-use Wrapper for the Ieceat API to access product data provided by Icecat. 
-It should be compatible from PHP 5.3.3+
+It should be compatible from PHP 5.5+
 
 ## Install
 

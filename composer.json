@@ -12,8 +12,8 @@
     }
   ],
   "require": {
-    "php": ">=5.3.3",
-    "guzzlehttp/guzzle": "5.3.*"
+    "php": ">=5.5",
+    "guzzlehttp/guzzle": "6.2.*"
   },
   "autoload": {
     "psr-4": {"Alexschwarz89\\IcecatXML\\": "src/"}

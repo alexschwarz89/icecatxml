@@ -78,10 +78,8 @@ class Api
     protected function init()
     {
         $this->guzzle = new \GuzzleHttp\Client(array(
-            'base_url' => $this->apiBaseUrl,
-            'defaults' => array(
-                'auth' => [$this->username, $this->password]
-            ),
+            'base_uri' => $this->apiBaseUrl,
+            'auth' => [$this->username, $this->password],
             'headers'        => $this->headers,
             'decode_content' => true
         ));
@@ -100,19 +98,21 @@ class Api
                 ));
         } catch (RequestException $e) {
             if ($this->debug) {
-                print $e->getRequest() . "\n";
+                print $e->getMessage() . "\n";
                 if ($e->hasResponse()) {
-                    print $e->getResponse() . "\n";
+                    print $e->getResponse()->getBody()->getContents() . "\n";
                 }
             }
 
             return false;
         }
 
-        return $response->xml();
+        return new \SimpleXMLElement($response->getBody()->getContents());
     }
 
     /**
+     * Queries article by EAN
+     *
      * @param $ean
      * @return bool|\SimpleXMLElement
      */
@@ -127,6 +127,8 @@ class Api
     }
 
     /**
+     * Queries article by vendor and manufacturer part no
+     *
      * @param $vendor
      * @param $mpn
      * @param string $lang
@@ -160,6 +162,14 @@ class Api
         return $this->request($url, []);
     }
 
+    /**
+     * Checks the returned XML response
+     * Does it contain an error message, throws an exception
+     *
+     * @param \SimpleXMLElement $response
+     * @return bool
+     * @throws IcecatException
+     */
     public function isValidArticle(\SimpleXMLElement $response)
     {
         if (isset($response->Product->attributes()->ErrorMessage)) {
