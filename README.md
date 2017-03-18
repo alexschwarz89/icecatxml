@@ -1,4 +1,5 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bdc4649b-7a9c-42ab-9e23-ac49f683af00/mini.png)](https://insight.sensiolabs.com/projects/bdc4649b-7a9c-42ab-9e23-ac49f683af00)
+[![Code Climate](https://codeclimate.com/github/alexschwarz89/icecatxml/badges/gpa.svg)](https://codeclimate.com/github/alexschwarz89/icecatxml)
 
 icecatxml
 ============
